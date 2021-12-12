@@ -7,9 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		85258BB927664AC800D613F0 /* UIColor+hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85258BB827664AC800D613F0 /* UIColor+hex.swift */; };
+		85258BBB27664C6F00D613F0 /* WheelViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85258BBA27664C6F00D613F0 /* WheelViewModel.swift */; };
+		85258BBE27664CD600D613F0 /* Property.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85258BBD27664CD600D613F0 /* Property.swift */; };
+		85258BC12766500600D613F0 /* RowModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85258BC02766500600D613F0 /* RowModel.swift */; };
 		8526DF992762A20800ADFF33 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8526DF982762A20800ADFF33 /* AppDelegate.swift */; };
 		8526DF9B2762A20800ADFF33 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8526DF9A2762A20800ADFF33 /* SceneDelegate.swift */; };
-		8526DF9D2762A20800ADFF33 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8526DF9C2762A20800ADFF33 /* ViewController.swift */; };
+		8526DF9D2762A20800ADFF33 /* WheelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8526DF9C2762A20800ADFF33 /* WheelViewController.swift */; };
 		8526DFA02762A20800ADFF33 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8526DF9E2762A20800ADFF33 /* Main.storyboard */; };
 		8526DFA32762A20800ADFF33 /* spinningWheel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8526DFA12762A20800ADFF33 /* spinningWheel.xcdatamodeld */; };
 		8526DFA52762A20900ADFF33 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8526DFA42762A20900ADFF33 /* Assets.xcassets */; };
@@ -17,13 +21,18 @@
 		8526DFB12762A24200ADFF33 /* WheelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8526DFB02762A24200ADFF33 /* WheelView.swift */; };
 		85BBCE112762ADA300D6B744 /* CGPoint++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85BBCE102762ADA300D6B744 /* CGPoint++.swift */; };
 		85BBCE132764FC7900D6B744 /* UIColor+random.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85BBCE122764FC7900D6B744 /* UIColor+random.swift */; };
+		85BBCE162766483200D6B744 /* LocalService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85BBCE152766483200D6B744 /* LocalService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		85258BB827664AC800D613F0 /* UIColor+hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+hex.swift"; sourceTree = "<group>"; };
+		85258BBA27664C6F00D613F0 /* WheelViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WheelViewModel.swift; sourceTree = "<group>"; };
+		85258BBD27664CD600D613F0 /* Property.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Property.swift; sourceTree = "<group>"; };
+		85258BC02766500600D613F0 /* RowModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RowModel.swift; sourceTree = "<group>"; };
 		8526DF952762A20800ADFF33 /* spinningWheel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = spinningWheel.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8526DF982762A20800ADFF33 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8526DF9A2762A20800ADFF33 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		8526DF9C2762A20800ADFF33 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		8526DF9C2762A20800ADFF33 /* WheelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WheelViewController.swift; sourceTree = "<group>"; };
 		8526DF9F2762A20800ADFF33 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8526DFA22762A20800ADFF33 /* spinningWheel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = spinningWheel.xcdatamodel; sourceTree = "<group>"; };
 		8526DFA42762A20900ADFF33 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -32,6 +41,7 @@
 		8526DFB02762A24200ADFF33 /* WheelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WheelView.swift; sourceTree = "<group>"; };
 		85BBCE102762ADA300D6B744 /* CGPoint++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGPoint++.swift"; sourceTree = "<group>"; };
 		85BBCE122764FC7900D6B744 /* UIColor+random.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+random.swift"; sourceTree = "<group>"; };
+		85BBCE152766483200D6B744 /* LocalService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,6 +55,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		85258BBC27664CCC00D613F0 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				85258BBD27664CD600D613F0 /* Property.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		85258BBF27664FFC00D613F0 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				85258BC02766500600D613F0 /* RowModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		8526DF8C2762A20800ADFF33 = {
 			isa = PBXGroup;
 			children = (
@@ -64,11 +90,13 @@
 		8526DF972762A20800ADFF33 /* spinningWheel */ = {
 			isa = PBXGroup;
 			children = (
+				85258BBF27664FFC00D613F0 /* Models */,
+				85258BBC27664CCC00D613F0 /* Common */,
+				85BBCE142766482800D6B744 /* Services */,
 				85BBCE0F2762AD9A00D6B744 /* Extensions */,
-				8526DFAF2762A22400ADFF33 /* Views */,
+				8526DFAF2762A22400ADFF33 /* Main */,
 				8526DF982762A20800ADFF33 /* AppDelegate.swift */,
 				8526DF9A2762A20800ADFF33 /* SceneDelegate.swift */,
-				8526DF9C2762A20800ADFF33 /* ViewController.swift */,
 				8526DF9E2762A20800ADFF33 /* Main.storyboard */,
 				8526DFA42762A20900ADFF33 /* Assets.xcassets */,
 				8526DFA62762A20900ADFF33 /* LaunchScreen.storyboard */,
@@ -78,12 +106,14 @@
 			path = spinningWheel;
 			sourceTree = "<group>";
 		};
-		8526DFAF2762A22400ADFF33 /* Views */ = {
+		8526DFAF2762A22400ADFF33 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				85258BBA27664C6F00D613F0 /* WheelViewModel.swift */,
+				8526DF9C2762A20800ADFF33 /* WheelViewController.swift */,
 				8526DFB02762A24200ADFF33 /* WheelView.swift */,
 			);
-			path = Views;
+			path = Main;
 			sourceTree = "<group>";
 		};
 		85BBCE0F2762AD9A00D6B744 /* Extensions */ = {
@@ -91,8 +121,17 @@
 			children = (
 				85BBCE102762ADA300D6B744 /* CGPoint++.swift */,
 				85BBCE122764FC7900D6B744 /* UIColor+random.swift */,
+				85258BB827664AC800D613F0 /* UIColor+hex.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		85BBCE142766482800D6B744 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				85BBCE152766483200D6B744 /* LocalService.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -166,11 +205,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8526DF9D2762A20800ADFF33 /* ViewController.swift in Sources */,
+				85258BBB27664C6F00D613F0 /* WheelViewModel.swift in Sources */,
+				8526DF9D2762A20800ADFF33 /* WheelViewController.swift in Sources */,
+				85258BBE27664CD600D613F0 /* Property.swift in Sources */,
+				85258BC12766500600D613F0 /* RowModel.swift in Sources */,
+				85BBCE162766483200D6B744 /* LocalService.swift in Sources */,
 				8526DFA32762A20800ADFF33 /* spinningWheel.xcdatamodeld in Sources */,
 				85BBCE112762ADA300D6B744 /* CGPoint++.swift in Sources */,
 				8526DFB12762A24200ADFF33 /* WheelView.swift in Sources */,
 				85BBCE132764FC7900D6B744 /* UIColor+random.swift in Sources */,
+				85258BB927664AC800D613F0 /* UIColor+hex.swift in Sources */,
 				8526DF992762A20800ADFF33 /* AppDelegate.swift in Sources */,
 				8526DF9B2762A20800ADFF33 /* SceneDelegate.swift in Sources */,
 			);

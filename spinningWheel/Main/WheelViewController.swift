@@ -7,23 +7,27 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class WheelViewController: UIViewController {
     
     var wheelView: WheelView! { view as? WheelView }
     
-    var parts: [UIColor] = [.red, .green, .blue] {
-        didSet {
-            wheelView.setNeedsDisplay()
-        }
-    }
+    let viewModel: WheelViewModeling = WheelViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
-        
+
+        observeViewModel()
+        configureUI()
+    }
+
+    private func observeViewModel() {
+        viewModel.rows.listeners.append { [weak self] _ in
+            self?.wheelView.setNeedsDisplay()
+        }
+    }
+    
+    private func configureUI() {
         wheelView.dataSource = self
-        
-        navigationController?.title = "test"
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -60,17 +64,20 @@ class ViewController: UIViewController {
     }
 
     @IBAction func appendTapped(_ sender: Any) {
-        parts.append(.random())
+        viewModel.addRow()
     }
 
     @IBAction func popTapped(_ sender: Any) {
-        parts.removeLast()
+        viewModel.popRow()
     }
 }
 
-extension ViewController: WheelDataSource {
-    var count: Int { parts.count }
-    func color(for index: Int) -> UIColor {
-        parts[index]
+extension WheelViewController: WheelDataSource {
+    var count: Int {
+        viewModel.rows.value.count
+    }
+
+    func row(for index: Int) -> RowModel {
+        viewModel.rows.value[index]
     }
 }

@@ -9,7 +9,7 @@ import UIKit
 
 protocol WheelDataSource {
     var count: Int { get }
-    func color(for index: Int) -> UIColor
+    func row(for index: Int) -> RowModel
 }
 
 class WheelView: UIView {
@@ -24,11 +24,11 @@ class WheelView: UIView {
         let count = dataSource.count
         let pie = Double.pi / Double(count) * 2
         for index in 0..<count {
-            drawCell(center: center, size: size, start: pie * Double(index), end: pie * Double(index + 1), color: dataSource.color(for: index))
+            drawCell(center: center, size: size, start: pie * Double(index), end: pie * Double(index + 1), row: dataSource.row(for: index))
         }
     }
 
-    func drawCell(center: CGPoint, size: CGFloat, start: Double, end: Double, color: UIColor) {
+    func drawCell(center: CGPoint, size: CGFloat, start: Double, end: Double, row: RowModel) {
         let aPath = UIBezierPath()
         
         aPath.move(to: center)
@@ -39,7 +39,7 @@ class WheelView: UIView {
         
         aPath.close()
 
-        color.set()
+        row.color.set()
         aPath.stroke()
         
         aPath.fill()
