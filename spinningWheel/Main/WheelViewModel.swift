@@ -12,10 +12,14 @@ protocol WheelViewModeling: AnyObject {
     var rows: Property<[RowModel]> { get }
     func addRow()
     func popRow()
+    
+    func didStartRoll()
+    func didEndRoll()
 }
 
 class WheelViewModel: WheelViewModeling {
     private let localService: LocalServicing = LocalService()
+    private let soundService: SoundServicing = SoundService()
 
     var rows: Property<[RowModel]> {
         localService.rows
@@ -31,5 +35,15 @@ class WheelViewModel: WheelViewModeling {
     
     private let localServicing: LocalServicing = LocalService()
     
+    init() {
+        soundService.playBackground()
+    }
     
+    func didStartRoll() {
+        soundService.playRoll()
+    }
+    
+    func didEndRoll() {
+        soundService.playBackground()
+    }
 }

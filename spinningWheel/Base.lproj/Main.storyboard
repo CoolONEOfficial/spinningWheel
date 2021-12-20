@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19528" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -11,41 +11,65 @@
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="WheelViewController" customModule="spinningWheel" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC" customClass="WheelView" customModule="spinningWheel" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9a7-Pp-aQM">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="31"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="8ha-1S-rO6">
+                                <rect key="frame" x="0.0" y="44" width="414" height="852"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iSi-aF-1dQ">
-                                        <rect key="frame" x="0.0" y="0.0" width="300" height="31"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" title="append"/>
-                                        <connections>
-                                            <action selector="appendTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="YPS-Pq-hdO"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b9s-oJ-0Jl">
-                                        <rect key="frame" x="300" y="0.0" width="300" height="31"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" title="pop"/>
-                                        <connections>
-                                            <action selector="popTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="dac-E8-vmq"/>
-                                        </connections>
-                                    </button>
+                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9a7-Pp-aQM">
+                                        <rect key="frame" x="20" y="0.0" width="374" height="40"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iSi-aF-1dQ">
+                                                <rect key="frame" x="0.0" y="0.0" width="187" height="40"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" title="append"/>
+                                                <connections>
+                                                    <action selector="appendTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="YPS-Pq-hdO"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b9s-oJ-0Jl">
+                                                <rect key="frame" x="187" y="0.0" width="187" height="40"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" title="pop"/>
+                                                <connections>
+                                                    <action selector="popTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="dac-E8-vmq"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="pQr-Mf-X0M"/>
+                                        </constraints>
+                                    </stackView>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="whatwherewhen" translatesAutoresizingMaskIntoConstraints="NO" id="hhH-Qp-ynp">
+                                        <rect key="frame" x="20" y="40" width="374" height="200"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="200" id="Tla-Hv-i1j"/>
+                                        </constraints>
+                                    </imageView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qKl-f7-NJK" customClass="WheelView" customModule="spinningWheel" customModuleProvider="target">
+                                        <rect key="frame" x="20" y="240" width="374" height="558"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
                                 </subviews>
+                                <edgeInsets key="layoutMargins" top="0.0" left="20" bottom="20" right="20"/>
                             </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" red="0.0" green="0.062745098039215685" blue="0.090196078431372548" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="9a7-Pp-aQM" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="5a3-DT-gs5"/>
-                            <constraint firstItem="9a7-Pp-aQM" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="KWM-kZ-k8p"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="9a7-Pp-aQM" secondAttribute="trailing" id="aYn-Ep-UT4"/>
+                            <constraint firstItem="8ha-1S-rO6" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="565-vh-Muf"/>
+                            <constraint firstAttribute="trailing" secondItem="8ha-1S-rO6" secondAttribute="trailing" id="DZ3-ya-WWD"/>
+                            <constraint firstItem="8ha-1S-rO6" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="b6S-eB-nc5"/>
+                            <constraint firstAttribute="bottom" secondItem="8ha-1S-rO6" secondAttribute="bottom" id="eF4-r5-ien"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="WSM-4q-iB4"/>
+                    <connections>
+                        <outlet property="logoView" destination="hhH-Qp-ynp" id="jUt-uu-e37"/>
+                        <outlet property="wheelView" destination="qKl-f7-NJK" id="0eM-LY-MHs"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -53,8 +77,6 @@
         </scene>
     </scenes>
     <resources>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
+        <image name="whatwherewhen" width="1920" height="1080"/>
     </resources>
 </document>
