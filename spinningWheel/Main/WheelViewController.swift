@@ -18,6 +18,8 @@ class WheelViewController: UIViewController {
     var startRotation: CGFloat = 0
     var previousRotations: [CGFloat] = []
     
+    var initialWheelFrame: CGRect!
+    
     private var isRotating = false {
         didSet {
             guard oldValue != isRotating else { return }
@@ -34,6 +36,7 @@ class WheelViewController: UIViewController {
 
         observeViewModel()
         configureUI()
+        initialWheelFrame = wheelView.frame
     }
 
     private func observeViewModel() {
@@ -92,8 +95,9 @@ private extension WheelViewController {
         let piece = gestureRecognizer.view!
         
         let location = gestureRecognizer.location(in: piece)
-        let res = location - piece.center
-        let rotation = atan2(res.y,  res.x) / .pi * 360 / 2 + 180 // 0-360
+        let topSafeArea = piece.safeAreaLayoutGuide.layoutFrame.origin.y
+        let res = location - .init(x: initialWheelFrame.width / 2 + initialWheelFrame.origin.x, y: initialWheelFrame.height / 2 + initialWheelFrame.origin.y + topSafeArea)
+        let rotation = atan2(res.y, res.x) / .pi * 360 / 2 + 180 // 0-360
         
         if gestureRecognizer.state == .began {
             startRotation = rotation

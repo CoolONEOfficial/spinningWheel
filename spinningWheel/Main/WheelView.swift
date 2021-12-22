@@ -22,8 +22,7 @@ class WheelView: UIView {
 
     var rotation: CGFloat = 0 {
         didSet {
-            debugPrint(rotation)
-            //transform = .init(rotationAngle: rotation.truncatingRemainder(dividingBy: 360) / 360 * .pi)
+            transform = .init(rotationAngle: rotation.truncatingRemainder(dividingBy: 360) / 180 * .pi)
         }
     }
 
