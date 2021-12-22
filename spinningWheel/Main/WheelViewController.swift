@@ -14,6 +14,10 @@ class WheelViewController: UIViewController {
     
     let viewModel: WheelViewModeling = WheelViewModel()
     
+    var lastRotation: CGFloat = 0
+    var startRotation: CGFloat = 0
+    var previousRotations: [CGFloat] = []
+    
     private var isRotating = false {
         didSet {
             guard oldValue != isRotating else { return }
@@ -34,7 +38,7 @@ class WheelViewController: UIViewController {
 
     private func observeViewModel() {
         viewModel.rows.listeners.append { [weak self] _ in
-            self?.wheelView.setNeedsDisplay()
+            self?.wheelView.reload()
         }
     }
     
@@ -56,7 +60,17 @@ class WheelViewController: UIViewController {
         maskLayer.shadowColor = UIColor.white.cgColor
         logoView.layer.mask = maskLayer
     }
-    
+
+    @IBAction func appendTapped(_ sender: Any) {
+        viewModel.addRow()
+    }
+
+    @IBAction func popTapped(_ sender: Any) {
+        viewModel.popRow()
+    }
+}
+
+private extension WheelViewController {
     func rotate(_ count: Double) {
         let rotation: CABasicAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
         rotation.toValue = NSNumber(value: Double.pi * 2 * count)
@@ -73,9 +87,6 @@ class WheelViewController: UIViewController {
         }
     }
 
-    var lastRotation: CGFloat = 0
-    var startRotation: CGFloat = 0
-    var previousRotations: [CGFloat] = []
     @objc func panPiece(_ gestureRecognizer : UIPanGestureRecognizer) {
         guard gestureRecognizer.view != nil, !isRotating else {return}
         let piece = gestureRecognizer.view!
@@ -92,7 +103,6 @@ class WheelViewController: UIViewController {
         let showRotation = lastRotation - diffRotation
 
         wheelView.rotation = lastRotation - diffRotation
-        wheelView.setNeedsDisplay()
         
         if gestureRecognizer.state == .ended {
             lastRotation = showRotation
@@ -108,22 +118,36 @@ class WheelViewController: UIViewController {
             }
         }
     }
-
-    @IBAction func appendTapped(_ sender: Any) {
-        viewModel.addRow()
-    }
-
-    @IBAction func popTapped(_ sender: Any) {
-        viewModel.popRow()
-    }
 }
 
 extension WheelViewController: WheelDataSource {
     var count: Int {
         viewModel.rows.value.count
     }
+    
+    var formatter: DateFormatter {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "mm:ss"
+        return dateFormatter
+    }
 
-    func row(for index: Int) -> RowModel {
-        viewModel.rows.value[index]
+    func row(for index: Int) -> UIView {
+        let val = viewModel.rows.value[index]
+        let view = UIView()
+        view.backgroundColor = val.color
+        
+        let label = UILabel()
+        label.text = formatter.string(from: val.date)
+        label.textAlignment = .center
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.addSubview(label)
+        NSLayoutConstraint.activate([
+            label.topAnchor.constraint(equalTo: view.topAnchor, constant: 10),
+            label.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0),
+            label.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0)
+        ])
+        
+        return view
     }
 }
