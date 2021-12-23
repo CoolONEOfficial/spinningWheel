@@ -11,4 +11,5 @@ import UIKit
 struct RowModel {
     let color: UIColor
     let date: Date
+    let text: String
 }

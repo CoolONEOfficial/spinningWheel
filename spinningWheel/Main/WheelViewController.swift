@@ -154,11 +154,11 @@ extension WheelViewController: WheelDataSource {
         viewModel.rows.value.count
     }
     
-    var formatter: DateFormatter {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "mm:ss"
-        return dateFormatter
-    }
+//    var formatter: DateFormatter {
+//        let dateFormatter = DateFormatter()
+//        dateFormatter.dateFormat = "mm:ss"
+//        return dateFormatter
+//    }
 
     func row(for index: Int) -> UIView {
         let val = viewModel.rows.value[index]
@@ -166,16 +166,21 @@ extension WheelViewController: WheelDataSource {
         view.backgroundColor = val.color
         
         let label = UILabel()
-        label.text = formatter.string(from: val.date)
-        label.textAlignment = .center
+        label.text = val.text
+        label.textAlignment = .right
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.5
+        label.lineBreakMode = .byTruncatingTail
         
         view.addSubview(label)
         NSLayoutConstraint.activate([
-            label.topAnchor.constraint(equalTo: view.topAnchor, constant: 10),
-            label.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0),
-            label.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0)
+            label.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            label.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            label.widthAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.9),
+            label.heightAnchor.constraint(equalTo: view.widthAnchor)
         ])
+        label.transform = .init(rotationAngle: -.pi / 2)
         
         return view
     }

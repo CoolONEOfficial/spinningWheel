@@ -33,8 +33,9 @@ class LocalService: LocalServicing {
         fetchEntities().compactMap { row in
             guard let colorStr = row.color,
                   let color = UIColor(hex: colorStr),
-                  let date = row.date else { return nil }
-            return .init(color: color, date: date)
+                  let date = row.date,
+                  let text = row.text else { return nil }
+            return .init(color: color, date: date, text: text)
         }
     }
     
@@ -47,6 +48,7 @@ class LocalService: LocalServicing {
             let entity = RowEntity(context: context)
             entity.color = row.color.toHex
             entity.date = row.date
+            entity.text = row.text
         }
         try! context.save()
     }
