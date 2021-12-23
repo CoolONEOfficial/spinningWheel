@@ -25,9 +25,12 @@ class WheelView: UIView {
             transform = .init(rotationAngle: rotation.truncatingRemainder(dividingBy: 360) / 180 * .pi)
         }
     }
+    
+    var pieViews: [UIView] = []
 
     func reload() {
-        subviews.forEach { $0.removeFromSuperview() }
+        pieViews.forEach { $0.removeFromSuperview() }
+        pieViews.removeAll()
         
         let size = min(bounds.width, bounds.height)
         let center = CGPoint(x: bounds.width / 2, y: bounds.height / 2)
@@ -40,24 +43,15 @@ class WheelView: UIView {
             let view = dataSource.row(for: index)
             
             addSubview(view)
+            pieViews.append(view)
             view.frame = .init(origin: .zero, size: .init(width: pieWidth, height: size / 2))
             view.center = center
             
             let layer = CAShapeLayer()
-            layer.path = maskPath(center: .init(x: view.frame.width / 2, y: view.frame.height), angle: pie, outerRadius: size / 2, centerAngle: .pi * 3 / 2).cgPath
+            layer.path = UIBezierPath.pie(center: .init(x: view.frame.width / 2, y: view.frame.height), angle: pie, outerRadius: size / 2, centerAngle: .pi * 3 / 2).cgPath
             view.layer.mask = layer
             
             view.transform = .init(rotationAngle: pie * Double(index)).translatedBy(x: 0, y: -size / 4)
         }
-    }
-
-    func maskPath(center: CGPoint, angle: CGFloat, outerRadius: CGFloat, centerAngle: CGFloat) -> UIBezierPath {
-        let innerAngle: CGFloat = angle / 2
-        let outerAngle: CGFloat = angle / 2
-        let path = UIBezierPath()
-        path.addArc(withCenter: center, radius: 0, startAngle: centerAngle - innerAngle, endAngle: centerAngle + innerAngle, clockwise: true)
-        path.addArc(withCenter: center, radius: outerRadius, startAngle: centerAngle + outerAngle, endAngle: centerAngle - outerAngle, clockwise: false)
-        path.close()
-        return path
     }
 }

@@ -4,6 +4,7 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -48,9 +49,31 @@
                                             <constraint firstAttribute="height" constant="200" id="Tla-Hv-i1j"/>
                                         </constraints>
                                     </imageView>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qKl-f7-NJK" customClass="WheelView" customModule="spinningWheel" customModuleProvider="target">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qKl-f7-NJK">
                                         <rect key="frame" x="20" y="240" width="374" height="558"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="65O-VP-BNI" customClass="WheelView" customModule="spinningWheel" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="334" height="558"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pdp-jL-d46">
+                                                <rect key="frame" x="334" y="259" width="40" height="40"/>
+                                                <color key="backgroundColor" systemColor="systemYellowColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="F87-Nz-hu9"/>
+                                                    <constraint firstAttribute="width" constant="40" id="c6C-7a-1LH"/>
+                                                </constraints>
+                                            </view>
+                                        </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="Pdp-jL-d46" firstAttribute="centerY" secondItem="qKl-f7-NJK" secondAttribute="centerY" id="5aw-Wi-ZJg"/>
+                                            <constraint firstAttribute="trailing" secondItem="Pdp-jL-d46" secondAttribute="trailing" id="H6J-Ig-EYI"/>
+                                            <constraint firstItem="65O-VP-BNI" firstAttribute="top" secondItem="qKl-f7-NJK" secondAttribute="top" id="JKZ-bm-uWC"/>
+                                            <constraint firstItem="65O-VP-BNI" firstAttribute="leading" secondItem="qKl-f7-NJK" secondAttribute="leading" id="mBQ-2x-AZF"/>
+                                            <constraint firstAttribute="bottom" secondItem="65O-VP-BNI" secondAttribute="bottom" id="oAr-7w-f7F"/>
+                                            <constraint firstItem="Pdp-jL-d46" firstAttribute="leading" secondItem="65O-VP-BNI" secondAttribute="trailing" id="v6Z-Ge-IgC"/>
+                                        </constraints>
                                     </view>
                                 </subviews>
                                 <edgeInsets key="layoutMargins" top="0.0" left="20" bottom="20" right="20"/>
@@ -67,8 +90,9 @@
                     </view>
                     <navigationItem key="navigationItem" id="WSM-4q-iB4"/>
                     <connections>
+                        <outlet property="arrowView" destination="Pdp-jL-d46" id="dle-dr-i5L"/>
                         <outlet property="logoView" destination="hhH-Qp-ynp" id="jUt-uu-e37"/>
-                        <outlet property="wheelView" destination="qKl-f7-NJK" id="0eM-LY-MHs"/>
+                        <outlet property="wheelView" destination="65O-VP-BNI" id="Fr2-s3-Qmz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -78,5 +102,8 @@
     </scenes>
     <resources>
         <image name="whatwherewhen" width="1920" height="1080"/>
+        <systemColor name="systemYellowColor">
+            <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
     </resources>
 </document>

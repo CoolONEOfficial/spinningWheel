@@ -14,7 +14,7 @@ protocol WheelViewModeling: AnyObject {
     func popRow()
     
     func didStartRoll()
-    func didEndRoll()
+    func didEndRoll(_ selectedIndex: Int)
 }
 
 class WheelViewModel: WheelViewModeling {
@@ -43,7 +43,8 @@ class WheelViewModel: WheelViewModeling {
         soundService.playRoll()
     }
     
-    func didEndRoll() {
+    func didEndRoll(_ selectedIndex: Int) {
         soundService.playBackground()
+        rows.value[selectedIndex] = .init(color: .random(), date: .now)
     }
 }

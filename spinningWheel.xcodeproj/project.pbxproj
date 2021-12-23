@@ -25,6 +25,7 @@
 		85BBCE112762ADA300D6B744 /* CGPoint++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85BBCE102762ADA300D6B744 /* CGPoint++.swift */; };
 		85BBCE132764FC7900D6B744 /* UIColor+random.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85BBCE122764FC7900D6B744 /* UIColor+random.swift */; };
 		85BBCE162766483200D6B744 /* LocalService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85BBCE152766483200D6B744 /* LocalService.swift */; };
+		85C8363D277492340029A8F9 /* UIBezierPath+pie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85C8363C277492340029A8F9 /* UIBezierPath+pie.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +49,7 @@
 		85BBCE102762ADA300D6B744 /* CGPoint++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGPoint++.swift"; sourceTree = "<group>"; };
 		85BBCE122764FC7900D6B744 /* UIColor+random.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+random.swift"; sourceTree = "<group>"; };
 		85BBCE152766483200D6B744 /* LocalService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalService.swift; sourceTree = "<group>"; };
+		85C8363C277492340029A8F9 /* UIBezierPath+pie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIBezierPath+pie.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,6 +140,7 @@
 				85BBCE102762ADA300D6B744 /* CGPoint++.swift */,
 				85BBCE122764FC7900D6B744 /* UIColor+random.swift */,
 				85258BB827664AC800D613F0 /* UIColor+hex.swift */,
+				85C8363C277492340029A8F9 /* UIBezierPath+pie.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -235,6 +238,7 @@
 				8526DFB12762A24200ADFF33 /* WheelView.swift in Sources */,
 				85BBCE132764FC7900D6B744 /* UIColor+random.swift in Sources */,
 				85258BB927664AC800D613F0 /* UIColor+hex.swift in Sources */,
+				85C8363D277492340029A8F9 /* UIBezierPath+pie.swift in Sources */,
 				8526DF992762A20800ADFF33 /* AppDelegate.swift in Sources */,
 				8526DF9B2762A20800ADFF33 /* SceneDelegate.swift in Sources */,
 			);

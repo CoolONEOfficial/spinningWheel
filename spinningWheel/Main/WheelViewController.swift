@@ -11,6 +11,7 @@ class WheelViewController: UIViewController {
     
     @IBOutlet weak private var wheelView: WheelView!
     @IBOutlet weak private var logoView: UIImageView!
+    @IBOutlet weak private var arrowView: UIView!
     
     let viewModel: WheelViewModeling = WheelViewModel()
     
@@ -22,11 +23,13 @@ class WheelViewController: UIViewController {
     
     private var isRotating = false {
         didSet {
-            guard oldValue != isRotating else { return }
+            //guard oldValue != isRotating else { return }
             if isRotating {
                 viewModel.didStartRoll()
             } else {
-                viewModel.didEndRoll()
+                let global = UIApplication.shared.keyWindow?.rootViewController?.view
+                let selIndex = wheelView.pieViews.map { wheelView.convert(.init(x: $0.frame.midX, y: $0.frame.midY), to: global) }.enumerated().sorted { $0.element.x > $1.element.x }.first!.offset
+                viewModel.didEndRoll(selIndex)
             }
         }
     }
@@ -36,7 +39,8 @@ class WheelViewController: UIViewController {
 
         observeViewModel()
         configureUI()
-        initialWheelFrame = wheelView.frame
+        
+        initialWheelFrame = .init(origin: wheelView.frame.origin + wheelView.superview!.frame.origin, size: wheelView.frame.size)
     }
 
     private func observeViewModel() {
@@ -47,6 +51,16 @@ class WheelViewController: UIViewController {
     
     private func configureUI() {
         wheelView.dataSource = self
+        configureArrow()
+    }
+    
+    private func configureArrow() {
+        wheelView.bringSubviewToFront(arrowView)
+        arrowView.backgroundColor = .systemYellow
+        let layer = CAShapeLayer()
+        layer.path = UIBezierPath.pie(center: .init(x: arrowView.bounds.width, y: arrowView.bounds.height / 2), angle: .pi / 4, outerRadius: arrowView.bounds.width, centerAngle: .pi).cgPath
+        arrowView.transform = .init(rotationAngle: .pi)
+        arrowView.layer.mask = layer
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -73,21 +87,32 @@ class WheelViewController: UIViewController {
     }
 }
 
-private extension WheelViewController {
+extension WheelViewController: CAAnimationDelegate {
     func rotate(_ count: Double) {
         let rotation: CABasicAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
-        rotation.toValue = NSNumber(value: Double.pi * 2 * count)
-        rotation.duration = abs(count)
+        let toValue = Double.pi * count * 2
+        rotation.toValue = NSNumber(value: toValue)
+        rotation.duration = abs(count * 2)
         rotation.isCumulative = true
         rotation.timingFunction = CAMediaTimingFunction(name: .easeOut)
         rotation.isRemovedOnCompletion = false
         rotation.fillMode = .forwards
-        wheelView.layer.add(rotation, forKey: "rotationAnimation")
+        rotation.delegate = self
         
+        wheelView.layer.add(rotation, forKey: "rotationAnimation")
+    }
+    
+    func animationDidStart(_ anim: CAAnimation) {
         isRotating = true
-        DispatchQueue.main.asyncAfter(deadline: .now() + rotation.duration) { [self] in
-            isRotating = false
-        }
+    }
+    
+    func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
+        guard flag, let basicAnim = anim as? CABasicAnimation, let toVal = basicAnim.toValue as? NSNumber else { return }
+        
+        isRotating = false
+        wheelView.layer.removeAllAnimations()
+        wheelView.rotation = toVal.doubleValue / (2 * .pi) * 360
+        lastRotation = wheelView.rotation
     }
 
     @objc func panPiece(_ gestureRecognizer : UIPanGestureRecognizer) {
@@ -106,7 +131,7 @@ private extension WheelViewController {
         let diffRotation = startRotation - rotation
         let showRotation = lastRotation - diffRotation
 
-        wheelView.rotation = lastRotation - diffRotation
+        wheelView.rotation = showRotation
         
         if gestureRecognizer.state == .ended {
             lastRotation = showRotation
