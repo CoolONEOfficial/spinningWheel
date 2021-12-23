@@ -24,16 +24,18 @@
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iSi-aF-1dQ">
                                                 <rect key="frame" x="0.0" y="0.0" width="187" height="40"/>
+                                                <color key="tintColor" systemColor="systemGroupedBackgroundColor"/>
                                                 <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="plain" title="append"/>
+                                                <buttonConfiguration key="configuration" style="plain" title="добавить"/>
                                                 <connections>
                                                     <action selector="appendTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="YPS-Pq-hdO"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b9s-oJ-0Jl">
                                                 <rect key="frame" x="187" y="0.0" width="187" height="40"/>
+                                                <color key="tintColor" systemColor="systemGroupedBackgroundColor"/>
                                                 <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="plain" title="pop"/>
+                                                <buttonConfiguration key="configuration" style="plain" title="удалить"/>
                                                 <connections>
                                                     <action selector="popTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="dac-E8-vmq"/>
                                                 </connections>
@@ -102,6 +104,9 @@
     </scenes>
     <resources>
         <image name="whatwherewhen" width="1920" height="1080"/>
+        <systemColor name="systemGroupedBackgroundColor">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemYellowColor">
             <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

@@ -109,10 +109,10 @@ extension WheelViewController: CAAnimationDelegate {
     func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
         guard flag, let basicAnim = anim as? CABasicAnimation, let toVal = basicAnim.toValue as? NSNumber else { return }
         
-        isRotating = false
         wheelView.layer.removeAllAnimations()
         wheelView.rotation = toVal.doubleValue / (2 * .pi) * 360
         lastRotation = wheelView.rotation
+        isRotating = false
     }
 
     @objc func panPiece(_ gestureRecognizer : UIPanGestureRecognizer) {
