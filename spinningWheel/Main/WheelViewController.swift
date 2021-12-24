@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import DynamicColor
 
 class WheelViewController: UIViewController {
     
@@ -23,10 +24,19 @@ class WheelViewController: UIViewController {
     
     private var isRotating = false {
         didSet {
-            //guard oldValue != isRotating else { return }
+            guard oldValue != isRotating else { return }
+
             if isRotating {
+                view.isUserInteractionEnabled = false
+                UIView.animate(withDuration: 1) { [self] in
+                    view.transform = .init(scaleX: 2, y: 2).translatedBy(x: -view.frame.width / 4, y: -view.frame.height / 6)
+                }
                 viewModel.didStartRoll()
             } else {
+                view.isUserInteractionEnabled = true
+                UIView.animate(withDuration: 1) { [self] in
+                    view.transform = .identity
+                }
                 let global = UIApplication.shared.keyWindow?.rootViewController?.view
                 let selIndex = wheelView.pieViews.map { wheelView.convert(.init(x: $0.frame.midX, y: $0.frame.midY), to: global) }.enumerated().sorted { $0.element.x > $1.element.x }.first!.offset
                 viewModel.didEndRoll(selIndex)
@@ -38,9 +48,14 @@ class WheelViewController: UIViewController {
         super.viewDidLoad()
 
         observeViewModel()
-        configureUI()
+        
         
         initialWheelFrame = .init(origin: wheelView.frame.origin + wheelView.superview!.frame.origin, size: wheelView.frame.size)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        configureUI()
     }
 
     private func observeViewModel() {
@@ -51,7 +66,21 @@ class WheelViewController: UIViewController {
     
     private func configureUI() {
         wheelView.dataSource = self
+        view.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(panPiece(_:))))
+        
         configureArrow()
+        configureLogo()
+    }
+    
+    private func configureLogo() {
+        let maskLayer = CAGradientLayer()
+        maskLayer.frame = logoView.bounds
+        maskLayer.shadowRadius = 5
+        maskLayer.shadowPath = CGPath(roundedRect: logoView.bounds.insetBy(dx: 5, dy: 5), cornerWidth: 10, cornerHeight: 10, transform: nil)
+        maskLayer.shadowOpacity = 1
+        maskLayer.shadowOffset = CGSize.zero
+        maskLayer.shadowColor = UIColor.white.cgColor
+        logoView.layer.mask = maskLayer
     }
     
     private func configureArrow() {
@@ -61,21 +90,6 @@ class WheelViewController: UIViewController {
         layer.path = UIBezierPath.pie(center: .init(x: arrowView.bounds.width, y: arrowView.bounds.height / 2), angle: .pi / 4, outerRadius: arrowView.bounds.width, centerAngle: .pi).cgPath
         arrowView.transform = .init(rotationAngle: .pi)
         arrowView.layer.mask = layer
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        view.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(panPiece(_:))))
-        
-        let maskLayer = CAGradientLayer()
-        maskLayer.frame = logoView.bounds
-        maskLayer.shadowRadius = 5
-        maskLayer.shadowPath = CGPath(roundedRect: logoView.bounds.insetBy(dx: 5, dy: 5), cornerWidth: 10, cornerHeight: 10, transform: nil)
-        maskLayer.shadowOpacity = 1
-        maskLayer.shadowOffset = CGSize.zero
-        maskLayer.shadowColor = UIColor.white.cgColor
-        logoView.layer.mask = maskLayer
     }
 
     @IBAction func appendTapped(_ sender: Any) {
@@ -88,6 +102,21 @@ class WheelViewController: UIViewController {
 }
 
 extension WheelViewController: CAAnimationDelegate {
+    func animationDidStart(_ anim: CAAnimation) {
+        isRotating = true
+    }
+    
+    func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
+        guard flag, let basicAnim = anim as? CABasicAnimation, let toVal = basicAnim.toValue as? NSNumber else { return }
+        
+        wheelView.layer.removeAllAnimations()
+        wheelView.rotation = toVal.doubleValue / (2 * .pi) * 360
+        lastRotation = wheelView.rotation
+        isRotating = false
+    }
+}
+
+private extension WheelViewController {
     func rotate(_ count: Double) {
         let rotation: CABasicAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
         let toValue = Double.pi * count * 2
@@ -100,19 +129,6 @@ extension WheelViewController: CAAnimationDelegate {
         rotation.delegate = self
         
         wheelView.layer.add(rotation, forKey: "rotationAnimation")
-    }
-    
-    func animationDidStart(_ anim: CAAnimation) {
-        isRotating = true
-    }
-    
-    func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
-        guard flag, let basicAnim = anim as? CABasicAnimation, let toVal = basicAnim.toValue as? NSNumber else { return }
-        
-        wheelView.layer.removeAllAnimations()
-        wheelView.rotation = toVal.doubleValue / (2 * .pi) * 360
-        lastRotation = wheelView.rotation
-        isRotating = false
     }
 
     @objc func panPiece(_ gestureRecognizer : UIPanGestureRecognizer) {
@@ -153,20 +169,15 @@ extension WheelViewController: WheelDataSource {
     var count: Int {
         viewModel.rows.value.count
     }
-    
-//    var formatter: DateFormatter {
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateFormat = "mm:ss"
-//        return dateFormatter
-//    }
 
     func row(for index: Int) -> UIView {
         let val = viewModel.rows.value[index]
         let view = UIView()
-        view.backgroundColor = val.color
+        view.backgroundColor = val.color.withAlphaComponent(0.5)
         
         let label = UILabel()
         label.text = val.text
+        label.textColor = .white
         label.textAlignment = .right
         label.translatesAutoresizingMaskIntoConstraints = false
         label.adjustsFontSizeToFitWidth = true

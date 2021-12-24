@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8520E9DF2776612E00A43184 /* DynamicColor in Frameworks */ = {isa = PBXBuildFile; productRef = 8520E9DE2776612E00A43184 /* DynamicColor */; };
 		85258BB927664AC800D613F0 /* UIColor+hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85258BB827664AC800D613F0 /* UIColor+hex.swift */; };
 		85258BBB27664C6F00D613F0 /* WheelViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85258BBA27664C6F00D613F0 /* WheelViewModel.swift */; };
 		85258BBE27664CD600D613F0 /* Property.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85258BBD27664CD600D613F0 /* Property.swift */; };
@@ -57,6 +58,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8520E9DF2776612E00A43184 /* DynamicColor in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -170,6 +172,9 @@
 			dependencies = (
 			);
 			name = spinningWheel;
+			packageProductDependencies = (
+				8520E9DE2776612E00A43184 /* DynamicColor */,
+			);
 			productName = spinningWheel;
 			productReference = 8526DF952762A20800ADFF33 /* spinningWheel.app */;
 			productType = "com.apple.product-type.application";
@@ -198,6 +203,9 @@
 				Base,
 			);
 			mainGroup = 8526DF8C2762A20800ADFF33;
+			packageReferences = (
+				8520E9DD2776612E00A43184 /* XCRemoteSwiftPackageReference "DynamicColor" */,
+			);
 			productRefGroup = 8526DF962762A20800ADFF33 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -392,6 +400,7 @@
 				DEVELOPMENT_TEAM = 99C2LB4W93;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = spinningWheel/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Колесо фортуны";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -421,6 +430,7 @@
 				DEVELOPMENT_TEAM = 99C2LB4W93;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = spinningWheel/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Колесо фортуны";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -462,6 +472,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		8520E9DD2776612E00A43184 /* XCRemoteSwiftPackageReference "DynamicColor" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/yannickl/DynamicColor.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		8520E9DE2776612E00A43184 /* DynamicColor */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8520E9DD2776612E00A43184 /* XCRemoteSwiftPackageReference "DynamicColor" */;
+			productName = DynamicColor;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		8526DFA12762A20800ADFF33 /* spinningWheel.xcdatamodeld */ = {
