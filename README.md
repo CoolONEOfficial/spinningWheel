@@ -1,3 +1,3 @@
 #  Spinning wheel app
 
-![](preview.gif)
+![](showcase.gif)
