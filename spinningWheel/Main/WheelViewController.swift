@@ -38,7 +38,7 @@ class WheelViewController: UIViewController {
                     view.transform = .identity
                 }
                 let global = UIApplication.shared.keyWindow?.rootViewController?.view
-                let selIndex = wheelView.pieViews.map { wheelView.convert(.init(x: $0.frame.midX, y: $0.frame.midY), to: global) }.enumerated().sorted { $0.element.x > $1.element.x }.first!.offset
+                guard let selIndex = wheelView.pieViews.map { wheelView.convert(.init(x: $0.frame.midX, y: $0.frame.midY), to: global) }.enumerated().sorted { $0.element.x > $1.element.x }.first?.offset else { return }
                 viewModel.didEndRoll(selIndex)
             }
         }

@@ -15,7 +15,6 @@ protocol WheelDataSource {
 class WheelView: UIView {
     var dataSource: WheelDataSource! {
         didSet {
-            guard dataSource != nil else { return }
             reload()
         }
     }
@@ -29,6 +28,7 @@ class WheelView: UIView {
     var pieViews: [UIView] = []
 
     func reload() {
+        guard dataSource != nil else { return }
         pieViews.forEach { $0.removeFromSuperview() }
         pieViews.removeAll()
         

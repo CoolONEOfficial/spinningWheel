@@ -15,42 +15,50 @@ protocol LocalServicing: AnyObject {
 
 class LocalService: LocalServicing {
     lazy var rows: Property<[RowModel]> = {
-        let property = Property<[RowModel]>(fetchRows())
+        let property = Property<[RowModel]>([])
+        fetchRows { rows in
+            property.value = rows
+        }
         property.listeners.append { [weak self] rows in
             self?.saveRows(rows)
         }
         return property
     }()
     
-    private func fetchEntities() -> [RowEntity] {
+    private static func fetchEntities(context: NSManagedObjectContext) -> [RowEntity] {
         let request = RowEntity.fetchRequest()
         request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
         let rows = (try? context.fetch(request)) ?? []
         return rows
     }
     
-    private func fetchRows() -> [RowModel] {
-        fetchEntities().compactMap { row in
-            guard let colorStr = row.color,
-                  let color = UIColor(hex: colorStr),
-                  let date = row.date,
-                  let text = row.text else { return nil }
-            return .init(color: color, date: date, text: text)
+    private func fetchRows(completion: @escaping ([RowModel]) -> Void) {
+        persistentContainer.performBackgroundTask { context in
+            let rows: [RowModel] = Self.fetchEntities(context: context).compactMap { row in
+                guard let colorStr = row.color,
+                      let color = UIColor(hex: colorStr),
+                      let date = row.date,
+                      let text = row.text else { return nil }
+                return .init(color: color, date: date, text: text)
+            }
+            completion(rows)
         }
     }
     
     private func saveRows(_ rows: [RowModel]) {
-        for entity in fetchEntities() {
-            context.delete(entity)
+        persistentContainer.performBackgroundTask { context in
+            for entity in Self.fetchEntities(context: context) {
+                context.delete(entity)
+            }
+            
+            for row in rows {
+                let entity = RowEntity(context: context)
+                entity.color = row.color.toHex
+                entity.date = row.date
+                entity.text = row.text
+            }
+            context.saveSafely()
         }
-        
-        for row in rows {
-            let entity = RowEntity(context: context)
-            entity.color = row.color.toHex
-            entity.date = row.date
-            entity.text = row.text
-        }
-        try! context.save()
     }
     
     private lazy var persistentContainer: NSPersistentContainer = {
@@ -79,21 +87,15 @@ class LocalService: LocalServicing {
         })
         return container
     }()
-    
-    private lazy var context: NSManagedObjectContext = {
-        persistentContainer.viewContext
-    }()
-    
-    private func saveContext () {
-        if context.hasChanges {
+}
+
+private extension NSManagedObjectContext {
+    func saveSafely() {
+        if hasChanges {
             do {
-                try context.save()
+                try save()
             } catch {
-                context.rollback()
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                let nserror = error as NSError
-                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+                rollback()
             }
         }
     }

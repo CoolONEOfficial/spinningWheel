@@ -16,9 +16,19 @@ class Property<T> {
     
     var value: T {
         didSet {
-            for listener in listeners {
-                listener(value)
+            notifyListeners()
+        }
+    }
+
+    func notifyListeners() {
+        guard Thread.isMainThread else {
+            DispatchQueue.main.async { [weak self] in
+                self?.notifyListeners()
             }
+            return
+        }
+        for listener in listeners {
+            listener(value)
         }
     }
 }
